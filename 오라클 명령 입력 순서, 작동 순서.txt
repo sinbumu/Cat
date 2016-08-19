@@ -1,0 +1,2 @@
+select/from/where/group by/having/order by 순으로 입력
+from/where/group by/having/select/order by 순으로 작동

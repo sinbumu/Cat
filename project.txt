@@ -1,0 +1,80 @@
+온라인 주문이 가능한 웹
+
+크게 봐서 3가지 세트를 구현해야 함
+
+사용할 개발언어, 지원 라이브러리
+java, jsp, html, css, servlet, mybatis, mysql, 
+
+html tag에서 약속? (id는 javascript, name은 jsp와 java, class는 css계열만 사용한다든가)
+
+1.기본적인 온라인 프랜차이즈 웹 구현(노가다,계정table 필요)
+
+2.온라인 주문 구현(db는 최소 은행역 table, 배달 주소지 table, 주문 받는 table)
+  메뉴 선택후, 결제 단계부터는 인위적으로 트렌젝션 제어, 모든 단계가 끝난뒤 입력되도록.
+
+3.점장 계정으로 접근 가능한 주문 받기 page가 존재. 실시간으로 갱신되는 창이 존재하며,
+  메뉴가 새로 들어오면 표시된다.
+	(센스적인 부분으로 배달이 끝난 주문은 배달완료 표식이 뜨고, 들어온지 몇분 미만인 주문은
+	new마크가 뜬다든지 하는 식의 시각적 효과를 주면 좋을듯, (주문 취소는?))오전 11:42 2016-08-19
+
+  일단 제일 까다로울 수 있는 부분인데 일단 3가지 방법이 생각남
+  1.ajax가 됬든 뭐가 됬든 실시간으로 db를 체크하는 환경 구축해 해당 page에서 자발적으로 web이 체크하도록 함
+  2.meta태그 쪽이었나...? 설정을 통해 주문 받기 창이 일정 시간마다 스스로 갱신하게 유도.
+  3.web socket을 이용(socket.io처럼) 주문 완료시 client가 소켓에 연결되어 주문이 들어감을 알림, 주문 받는 
+    페이지에 접속시 계속 socket에 연결되어 있는 상태고, 주문이 완료되는 순간 client는 이 socket에 연결된다
+    client가 접속했다 접속이 해제됨을 확인하면 주문 받는 페이지가 갱신된다.
+
+
+DB
+
+Member DB (회원 가입)
+id,pass,name,phone,email,zonecode,address
+
+request DB (주문 결제 완료후 결제 내용이 들어갈 db)
+id(fk),content,price,comment,raddress,request_date
+
+address DB (각각의 계정이 온라인 주문시 배달지 선택 창에 들어갈 값들 저장하는 db)
+id(fk),address
+
+checkcard DB (은행 결제 업무를 대체해줄 db)
+card_num, money
+
+Menu DB (음식들의 분류,사진,이름,설명,값 등등이 들어가는 db 관리자 page를 통해 첨삭 가능)
+menu_type,menu_img,menu_name,menu_context,menu_price
+
+
+
+Pjs - src - 
+
+
+     WebContent - Page - (필수 요소)
+			 index.jsp(인덱스)
+			 header.jsp(헤더)
+			 footer.jsp(바닥)
+			 login.jsp(로그인)
+			 join.jsp(회원가입)
+			 online_order1.jsp(온라인 주문(배달지 선택))
+			 online_order2.jsp(온라인 주문(메뉴 선택 창))
+			 online_order3.jsp(온라인 주문(할인 선택 창))
+			 online_order4.jsp(온라인 주문(주문 확인, 결제 창))
+			 online_order5.jsp(결제 완료(완료된 값 표시하는 창)
+			 menu*.jsp(메뉴 보여주는 페이지들)
+			 order_request.jsp(점장 계정 전용, 주문 받는 페이지)
+			 master_menu_management.jsp(관리자 전용 메뉴 관리 페이지)
+			 master_account_management.jsp(관리자 전용 계정 관리 페이지)
+
+			 (부가적 요소)
+			이벤트,할인제휴,매장 찾기 페이지들
+			 
+			  
+
+	                  boardUpload (자료실 임시폴더)
+
+		          WEB-INF - lib - jstl-1.2.jar
+				    	  cos.jar
+ 				   	  ojdbc6.jar
+					  mybatis
+					  
+
+			      - web.xml(프로젝트의 환경설정파일)
+

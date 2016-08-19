@@ -1,0 +1,150 @@
+-------------복습
+1. sql 명령어의 유형
+DQL : Data Query Language(질의어)
+SELECT(데이터 검색시 사용)
+DML : Data Manipulation Language(데이터 조작어)-데이터 변경시 사용
+INSERT(데이터 입력)
+UPDATE(데이터 수정)
+DELETE(데이터 삭제)
+DLL : Data Definition Language (데이터 정의어) 객체 생성 및 변경시 사용
+CREATE(데이터베이스 생성)
+ALTER(데이터베이스 변경)
+DROP(데이터베이스 삭제)
+RENAME(데이터베이스 객체이름 변경)
+TRUNCATE(데이터베이스 저장 공간 삭제)
+TCL : Transaction Control Language (트랜잭션 처리어) 
+COMMIT(트랜잭션의 정상적인 종료처리)
+ROLLBACK(트랜잭션 취소)
+SAVEPOINT(트랜잭션내에 일시 저장점 설정)
+DCL : Data Control Language (데이터 제어어)
+GRANT(데이터베이스에 대한 일련의 권한 부여)
+REVOKE(데이터베이스에 대한 일련의 권한 취소)
+
+2. 데이터 베이스 관리자
+sys system 등이 있다. 관리자 계정으로만 할 수 있는 일들이 있음.
+
+3. SQL 기본 기억할만한 요소들
+ 1 NULL
+ 2 as를 이용한 별칭 짓기
+ 3 Concatenation 연산자 (||) 사용 연결
+ 4 DISTINCT 키워드
+ 
+4.select
+ oracle에선 비교연산자에서 =을 두번 쓰지 않음
+ where 조건문
+ and or not 논리 연산자
+ between and 혹은 and 
+ in 혹은 or
+ like 연산자와 와일드카드(%,_)
+ null은 is와 쓴다 (is null)
+ order by 절 (asc desc)
+ 
+5.sql 주요 함수
+ dual 테이블
+ 잡것들 알고 싶으면 그때 그때 확인
+ 형 변환 함수-
+ to_char
+ to_date
+ to_number
+ 
+6.그룹함수
+ 그룹함수 들이 있다.
+ sum avg count max min stddev variance
+ group by 절 
+ having 조건(그룹함수 전용 조건절)
+ 
+7.조인
+ equi join (동일 칼럼 기준 조인)
+ non-equi join
+ outer join
+ self join 
+ 
+ ANSI 표준
+ on using natural 등 여러 방법으로 조인 표현
+ 
+8.서브 쿼리
+ 쿼리 문 안에 ()를 씌우고선 쿼리문을 또 넣음
+ 다중행 서브쿼리
+
+9.테이블 생성(DDL)
+ create table
+ alter table
+ drop table
+ truncate
+ rename
+ 딕셔너리 뷰
+
+10.테이블 내용 추가,수정,삭제 (DML)
+ insert
+ update
+ delete
+
+11.트랜잭션
+ 트랜잭션 이란?
+ commit 
+ rollback
+ auto commit
+ save point
+ 
+12.데이터 무결성을 위한 제약 조건
+ not null(null 허용 안함)
+ unique(중복된 값 허용 안함)
+ primary key(not null+unique)
+ foreign key(참조되는 테이블의 칼럼의 값이 존재하면 허용)
+ check(저장 가능한 데이터 값의 범위나 조건을 지정하여 설정한 값만 허용)
+ default(아무 값도 입력 안되면 default뒤에 나오는 값이 드감)
+ 
+ 제약 조건 활성-비활성화(비활성 해야 삭제 가능해서)
+ CASCADE 옵션(필요하면 그때 찾자)
+ 
+13.가상 테이블 뷰(view)
+ 뷰만의 제약문들이 있단걸 잊지 말자.
+ 
+14.SEQUENCE(시퀸스)
+ 제곧내
+
+15.index(인덱스)
+ 조회를 빠르게 하기 위해 만듬
+ 
+16.사용자 관리
+ grant
+ revoke
+
+17.role(롤)
+ grant로 권한을 줄 때 일일이 주기 귀찮아서
+ connect resource dba 등등의 role이 있다.
+ 사용자 생성 role도 만든뒤 사용 가능
+
+18.동의어
+ 다른 유저의 테이블을 불러올 땐 (유저명.테이블명) 이런식으로 길게
+ 써야 하는데 그게 번거롭기 떄문에 자주 가져올거면
+ 동의어를 생성해서 짧은 이름으로 호출한다.
+ 비공개 동의어와 공개 동의어가 있다
+ 특정 유저에서 만들어 그 유저만 쓰면 비공개
+ 관리자 계정으로 해서 누구나 쓸 수 있으면 공개 동의어다
+ 
+19.pl/sql
+ 변수 선언, 비교 처리, 반복 처리 등을 위해 사용
+ 선언부 실행부 예외처리
+ declare
+ begin
+ end
+ if then end if
+ if then else end if
+ basic loop (exit [where condition]같은 조건을 안에 넣어 종료시킴)
+ for loop (example : for n in 1..5 loop 이런식이면 1부터 5까지 차례대로 넣어서 반복문함)
+ while loop (while condition loop - condition이 참인 동안만 반복)
+ 
+20.저장 프로시저, 함수, 커서
+ 반복적으로 호출해서 쓰는 용도로 프로시저를 만듬
+ 커서는 원하는 데이터 행이 여러개일 때 다 출력 될 떄까지
+ 반복해서 시행됨
+ 
+21.패키지, 트리거
+ package
+ package body
+ 패키지에 패키지에 담을 프로시져들의 이름을 넣는다
+ 패키지 바디엔 프로시져들의 내용물을 넣는다.
+ trigger
+ 어떤 이벤트가 발생했을 때 발생하기 전,후에 발동하는 이벤트다
+ 

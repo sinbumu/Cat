@@ -1,0 +1,10 @@
+@DB¿¬µ¿
+
+1. JDBC (Java Database Connectivity)
+
+2. DBCP (Database Connection Pool)
+
+3. ORM (Object Relational Mapping)
+	-iBatis
+	-MyBatis
+	-Hibernate
